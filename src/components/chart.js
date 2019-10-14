@@ -152,6 +152,12 @@ export default {
         dataTable.addRows(self.rows)
       }
 
+      _.forEach(self.formatters, (formatter, key) => {
+        if (formatter && formatter.type && formatter.params) {
+          new (window.google.visualization[formatter.type])(formatter.params).format(dataTable, parseInt(key))
+        }
+      })
+
       return dataTable
     },
 
